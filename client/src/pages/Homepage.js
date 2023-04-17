@@ -26,9 +26,7 @@ function Homepage() {
     const dispatch = useDispatch();
     const [count, setCount] = useState(0);
     const state = useSelector(state => state.carts);
-
     useEffect(() => {
-
         axios.get("https://localhost:7062/all")
             .then((res) => {
                 console.log(res.data);
@@ -40,7 +38,6 @@ function Homepage() {
             });
         getAllProducts();
     }, []);
-
     const getAllProducts = () => {
         axios.get("https://localhost:7062/AllProduct")
             .then((res) => {
@@ -52,7 +49,6 @@ function Homepage() {
                 console.log(err);
             });
     }
-
     async function categorySelector(item) {
         try {
             await axios.get(`https://fakestoreapi.com/products/category/${item}`)
@@ -60,21 +56,18 @@ function Homepage() {
                     console.log("result of category", res.data);
                     setProducts(res.data);
                 })
-
         }
         catch (err) {
             console.log("error is ", err);
         }
-
     }
-    async function AllProductsSelector() {
+    async function allProductsSelector() {
         try {
             await axios.get(``)
                 .then((res) => {
                     console.log("result of category", res.data);
                     setProducts(res.data);
                 })
-
         }
         catch (err) {
             console.log("error is ", err);
@@ -83,22 +76,18 @@ function Homepage() {
     const searchOutput = (searchKey) => {
         console.log("searchkey is ", searchKey)
         setSearchInput(searchKey);
-
         if (searchInput !== '') {
             const filteredData = products.filter((item) => {
                 return Object.values(item).join('').toLowerCase().includes(searchInput.toLowerCase())
             })
             setFilteredResults(filteredData);
             console.log("filtered items are ", filteredData);
-
         }
         else {
             console.log("in else case ")
             setFilteredResults(products);
-
         }
     }
-
     const incrementCount = (item) => {
         setCount(count + 1);
         dispatch(updateCart(count));
@@ -107,15 +96,13 @@ function Homepage() {
     return (
         <>
             <div class="active bg-light" href="#login" >
-
                 <DrawerAppBar />
                 {token && <>
                     <Container fluid className="mt-5 pt-4 pb-2 bg-light text-center">
-                        <div class="input-group">
-
-                            <div class="form-outline">
-                                <input type="search" id="form1" class="form-control" placeholder="Search" onChange={(e) => { searchOutput(e.target.value) }} />
-                                <label class="form-label" for="form1"></label>
+                        <div className="input-group">
+                            <div className="form-outline">
+                                <input type="search" id="form1" className="form-control" placeholder="Search" onChange={(e) => { searchOutput(e.target.value) }} />
+                                <label className="form-label" for="form1"></label>
                             </div>
                         </div>
                         <div className="row justify-content-center">
@@ -144,37 +131,36 @@ function Homepage() {
             </div>
             <div>
                 <ToastContainer />
-                <section className="" style={{ backgroundColor: "#eee", }}>    {/*  'margin-top': '85px'  */}
-                    <div class="container py-5">
-                        <div class="row">
+                <section className="" style={{ backgroundColor: "#eee", }}>   
+                    <div className="container py-5">
+                        <div className="row">
                             {searchInput.length > 1 ? (
                                 filteredResults.map((product, index) => {
                                     return (
-                                        <div class="col-md-6 col-lg-4 mb-4" key={product.id}>
-                                            <div class="card">
-                                                <div class="d-flex justify-content-between p-3">
-                                                    <p class="lead mb-0">Today's Offer</p>
+                                        <div className="col-md-6 col-lg-4 mb-4" key={product.id}>
+                                            <div className="card">
+                                                <div className="d-flex justify-content-between p-3">
+                                                    <p className="lead mb-0">Today's Offer</p>
                                                 </div>
                                                 <div className="ratio ratio-4x3">
                                                     <img
                                                         src={product.image}
-                                                        class="card-img-top"
-                                                        alt="Laptop"
-                                                    />
+                                                        className="card-img-top"
+                                                        alt="Laptop"/>
                                                 </div>
-                                                <div class="card-body">
-                                                    <div class="d-flex justify-content-between">
-                                                        <p class="small">
-                                                            <a href="#!" class="text-muted">
+                                                <div claclassNamess="card-body">
+                                                    <div className="d-flex justify-content-between">
+                                                        <p className="small">
+                                                            <a href="#!" className="text-muted">
                                                                 {product.category}
                                                             </a>
                                                         </p>
                                                     </div>
-                                                    <div class="d-flex justify-content-between mb-3">
-                                                        <h5 class="text-truncate mb-4 mb-md-0">{product.title}</h5>
+                                                    <div className="d-flex justify-content-between mb-3">
+                                                        <h5 className="text-truncate mb-4 mb-md-0">{product.title}</h5>
                                                     </div>
-                                                    <div class="d-flex justify-content-between mb-2">
-                                                        <div class="ms-auto text-warning">
+                                                    <div className="d-flex justify-content-between mb-2">
+                                                        <div className="ms-auto text-warning">
                                                         </div>
                                                     </div>
                                                     <div className="text-center">
@@ -191,34 +177,34 @@ function Homepage() {
                                     );
                                 })) : (products.map((product, index) => {
                                     return (
-                                        <div class="col-md-6 col-lg-4 mb-4" key={index}>
-                                            <div class="card">
-                                                <div class="d-flex justify-content-between p-3">
-                                                    <p class="lead mb-0">Today's Offer</p>
+                                        <div className="col-md-6 col-lg-4 mb-4" key={index}>
+                                            <div className="card">
+                                                <div className="d-flex justify-content-between p-3">
+                                                    <p className="lead mb-0">Today's Offer</p>
                                                 </div>
                                                 <div className="ratio ratio-4x3">
                                                     <img
                                                         src={product.image}
-                                                        class="card-img-top"
+                                                        className="card-img-top"
                                                         alt="Laptop"
                                                     />
                                                 </div>
-                                                <div class="card-body">
-                                                    <div class="d-flex justify-content-between">
-                                                        <p class="small">
-                                                            <a href="#!" class="text-muted">
+                                                <div className="card-body">
+                                                    <div className="d-flex justify-content-between">
+                                                        <p className="small">
+                                                            <a href="#!" className="text-muted">
                                                                 {product.category.name}
                                                             </a>
                                                         </p>
                                                     </div>
-                                                    <div class="d-flex justify-content-between mb-3">
-                                                        <h5 class="text-truncate mb-4 mb-md-0">{product.name}</h5>
+                                                    <div className="d-flex justify-content-between mb-3">
+                                                        <h5 className="text-truncate mb-4 mb-md-0">{product.name}</h5>
                                                     </div>
-                                                    <div class="d-flex justify-content-between mb-2">
-                                                        <p class="text-muted mb-0">Available: <span class="fw-bold">{product.available}</span></p>  
+                                                    <div className="d-flex justify-content-between mb-2">
+                                                        <p className="text-muted mb-0">Available: <span className="fw-bold">{product.available}</span></p>  
                                                     </div>
                                                     <div className="text-center">
-                                                            <h4>Price: <span class="bold">${product.price}</span></h4>
+                                                            <h4>Price: <span className="bold">${product.price}</span></h4>
                                                         </div>
                                                     <div className="text-center">
                                                         <ButtonGroup variant="contained" aria-label="outlined primary button group">

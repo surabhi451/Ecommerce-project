@@ -7,25 +7,17 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { ToastContainer } from 'react-toastify';
 import notify from '../components/toastService';
 
-
-
 function Register() {
   const navigate = useNavigate();
-
-
   const schema = yup.object().shape(
     {
       name: yup.string().required("Name is required"),
       email: yup.string().email('Email is not valid').required("Email is required"),
       phonenumber: yup.string("Phone number is not valid").required("Phone no is required"),
       dob: yup.date().required("Date of Birth is required"),
-      password: yup.string().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/, "Minimum eight characters, at least one uppercase letter, one lowercase letter, one number and one special character").required("Password is required"),
+      password: yup.string().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,}$/, "Minimum five characters, at least one uppercase letter, one lowercase letter, one number and one special character").required("Password is required"),
       confirmpassword: yup.string().oneOf([yup.ref("password"), "Confirm password doesnt match"]).required("Confirm password is required")
     })
-
-
-
-
   const registerUser = async (data) => {
     console.log(data)
     const regdata = { 
@@ -52,33 +44,26 @@ function Register() {
       notify("Failed to register ");
     }
   };
-
-
-
-
-
   const formInvalid = (data) => {
     console.log("Invalid form", data);
   }
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   });
-
   return (
-
     <div className='container-fluid'>
       <ToastContainer />
-      <section class="h-100 h-custom" style={{ backgroundcolor: ' #8fc4b7' }}>
-        <div class="container py-5 h-100">
-          <div class="row d-flex justify-content-center align-items-center h-100">
-            <div class="col-lg-8 col-xl-6">
-              <div class="card rounded-3">
+      <section className="h-100 h-custom" style={{ backgroundcolor: ' #8fc4b7' }}>
+        <div classNames="container py-5 h-100">
+          <div className="row d-flex justify-content-center align-items-center h-100">
+            <div className="col-lg-8 col-xl-6">
+              <div className="card rounded-3">
                 <img src="https://images.pexels.com/photos/135620/pexels-photo-135620.jpeg?cs=srgb&dl=pexels-shattha-pilabut-135620.jpg&fm=jpg"
-                  class="w-100"
+                  className="w-100"
                   alt="Sample photo" />
-                <div class="card-body p-4 p-md-5">
-                  <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registration Info</h3>
-                  <form class="px-md-2" onSubmit={handleSubmit(registerUser, formInvalid)}>
+                <div className="card-body p-4 p-md-5">
+                  <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registration Info</h3>
+                  <form className="px-md-2" onSubmit={handleSubmit(registerUser, formInvalid)}>
                     <div className='details'>
                       <label htmlFor="name" className='labels'>Name</label>
                       <input type="text" name="name" className='form-control'
@@ -105,7 +90,6 @@ function Register() {
                       <input type="date" name="dob" className='form-control'
                         placeholder="Enter your date of birth "
                         {...register("dob", { required: true })} />
-                      {/* <p className="text-danger">{errors.dob ? errors.dob.message : <></>}</p> */}
                     </div>
                     <div className='details'>
                       <label htmlFor="password" className='labels'>Password</label>
@@ -121,9 +105,9 @@ function Register() {
                         {...register("confirmpassword", { required: true, validate: true })} />
                       <p className="text-danger">{errors.confirmpassword ? errors.confirmpassword.message : <></>}</p>
                     </div>
-                    <button type="submit" class="btn btn-success btn-lg mb-1">Submit</button>
-                    <p class="text-center text-muted mt-5 mb-0">Have already an account? <Link to={'/Login'}
-                      class="fw-bold text-body"><u>Login here</u></Link></p>
+                    <button type="submit" className="btn btn-success btn-lg mb-1">Submit</button>
+                    <p className="text-center text-muted mt-5 mb-0">Have already an account? <Link to={'/Login'}
+                      className="fw-bold text-body"><u>Login here</u></Link></p>
                   </form>
                 </div>
               </div>
@@ -132,7 +116,6 @@ function Register() {
         </div>
       </section>
     </div>
-
   )
 }
 
