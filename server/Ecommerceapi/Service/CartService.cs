@@ -1,5 +1,6 @@
 ﻿using Ecommerceapi.Data;
 using Ecommerceapi.Dto;
+using Ecommerceapi.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 
@@ -15,37 +16,42 @@ namespace Ecommerceapi.Service
 
         public async Task<List<CartViewDto>> GetAllCartAsync()
         {
-            var cart = await _db.carts
-
-                .Include(p => p.Product)
-                .ThenInclude(c => c.Category)
+           
+                 return await _db.carts
                 .Select(c => new CartViewDto
                 {
                     Id = c.Id,
-                    Product = new()
+                    Product = new() 
+                    { 
+                    Id = c.product.Id,
+                    Name = c.product.Name,
+                    Description = c.product.Description,
+                    Category = new CategoryViewDto()
                     {
-                        Id = Product.Id,
-                        Name = Product.Name,
-                        Description = Product.Description,
-                        Category = new()
-                        {
-                            Id = p.Product.CategoryId,
-                            Name = p.Product.Category.Name,
-                            Description = p.Product.Category.Description
-                        },
-                        Available = Product.Available,
-                        Price = Product.Price,
+                        Id = c.product.CategoryId,
+                        Name = c.product.Category.Name,
+                        Description = c.product.Category.Description
                     },
-                    ApplicationUser = new()
+                    Available = c.product.Available,
+                    Price = c.product.Price,
+                    },
+
+                    ApplicationUser = new ()
                     {
-                        Id = c.Id,
-                        Name = c.Name,
+                        Id = c.ApplicationUserId,
+                        Name = c.ApplicationUser.Name,
                         Email = c.ApplicationUser.Email,
-                        PhoneNumber = c.ApplicationUser.PhoneNumber,
-                        DateOfBirth = c.ApplicationUser.DateOfBirth
+                        Dob = c.ApplicationUser.Dob
                     }
+
                 }).ToListAsync();
+
+
+
+
         }
 
     }
+
 }
+

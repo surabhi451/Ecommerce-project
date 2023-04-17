@@ -9,7 +9,7 @@ import { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getToken, setToken } from '../utils/TokenHelper';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const schema = yup.object().shape({
     email: yup
@@ -19,7 +19,7 @@ const schema = yup.object().shape({
     password: yup
       .string()
       .matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{8,}$/,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d@$!%*?&]{5,}$/,
         '* invalid password *')
       .required('* Password is required')
   });
@@ -97,7 +97,7 @@ function Login() {
 
                   <div class="d-flex align-items-center justify-content-center pb-4">
                     <p class="mb-0 me-2">Don't have an account?</p>
-                    <button type="button" class="btn btn-outline-success">Create new</button>
+                     <Link to={'/Register'}class="fw-bold text-body" style={{color:'rgb(85, 221, 58)'}}>Create New</Link>
                   </div>
 
                 </form>

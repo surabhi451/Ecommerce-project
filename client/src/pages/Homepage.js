@@ -198,7 +198,7 @@ function Homepage() {
                                                 </div>
                                                 <div className="ratio ratio-4x3">
                                                     <img
-                                                        src={""}
+                                                        src={product.image}
                                                         class="card-img-top"
                                                         alt="Laptop"
                                                     />
