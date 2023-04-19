@@ -51,7 +51,7 @@ function Homepage() {
     }
     async function categorySelector(item) {
         try {
-            await axios.get(`https://fakestoreapi.com/products/category/${item}`)
+            await axios.get(`https://localhost:7062/categoryId/${item}`)
                 .then((res) => {
                     console.log("result of category", res.data);
                     setProducts(res.data);
@@ -61,9 +61,10 @@ function Homepage() {
             console.log("error is ", err);
         }
     }
+    
     async function allProductsSelector() {
         try {
-            await axios.get(``)
+            await axios.get(`https://localhost:7062/AllProduct`)
                 .then((res) => {
                     console.log("result of category", res.data);
                     setProducts(res.data);
@@ -118,7 +119,7 @@ function Homepage() {
                             {category && category.map((category, index) =>
                                 <div className="col-sm-3" key={index}>
                                     <div className="card">
-                                        <button className="btn btn-outline-warning category-button" onClick={() => { categorySelector(category.Id) }}>
+                                        <button className="btn btn-outline-warning category-button" onClick={() => { categorySelector(category.id) }}>
                                             <div className="card-body">
                                                 <h5 className="card-title text-dark"> {category.name}</h5>
                                             </div>
@@ -167,7 +168,7 @@ function Homepage() {
                                                         <ButtonGroup variant="contained" aria-label="outlined primary button group">
                                                             <Button variant="outlined" color="primary"><Link to={`/viewinfo/${product.id}`}>View Info</Link></Button>
                                                             {token && <>
-                                                                <Button variant="contained" color="primary" onClick={() => { }}>Add to Cart</Button>
+                                                                <Button variant="contained" color="primary" onClick= { incrementCount}><Link to={`/cart/${product.id}`}> Add to Cart</Link></Button> 
                                                             </>}
                                                         </ButtonGroup>
                                                     </div>
@@ -204,11 +205,12 @@ function Homepage() {
                                                         <p className="text-muted mb-0">Available: <span className="fw-bold">{product.available}</span></p>  
                                                     </div>
                                                     <div className="text-center">
-                                                            <h4>Price: <span className="bold">${product.price}</span></h4>
+                                                            <h5>Price: <span className="bold">$ {product.price}</span></h5>
                                                         </div>
+                                                        <hr class="my-0" />
                                                     <div className="text-center">
                                                         <ButtonGroup variant="contained" aria-label="outlined primary button group">
-                                                            <Button variant="outlined" color="primary"><Link to={`/viewinfo/${product.id}`}>View Info</Link></Button>
+                                                            <Button variant="outlined" color="primary"><Link to={`/viewinfo/${product.id}`} >View Info</Link></Button>
                                                             {token && <>
                                                                 <Button variant="contained" color="primary" onClick={() => { incrementCount(product) }}>Add to Cart</Button>
                                                             </>}
