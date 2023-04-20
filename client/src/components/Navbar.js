@@ -25,56 +25,48 @@ import { saveItem, watchList } from './Redux/cartslice';
 import { CiHeart } from 'react-icons/ci';
 
 const drawerWidth = 240;
-
-
 function DrawerAppBar(props) {
-const token = getToken();
-const [navItems, setNavItems] = React.useState(['Login']);
-const navigate = useNavigate();
-const count = useSelector(state => state.carts.cart);
-const counter = useSelector(state => state.carts.cart1);
-function navbarSetter(){
-  if(token){
-    console.log("token is ",token);
-    setNavItems(['Home','About','Logout']);
+  const token = getToken();
+  const [navItems, setNavItems] = React.useState(['Login']);
+  const navigate = useNavigate();
+  const count = useSelector(state => state.carts.cart);
+  const counter = useSelector(state => state.carts.cart1);
+  function navbarSetter() {
+    if (token) {
+      console.log("token is ", token);
+      setNavItems(['Home', 'About', 'Logout']);
+    }
   }
-}
-
-React.useEffect(() => {
-  navbarSetter();
-}, []);
-
+  React.useEffect(() => {
+    navbarSetter();
+  }, []);
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-  function Logout(){
+  function Logout() {
     console.log("logging out");
     removeToken();
     navigate('/login');
-
   }
-
-  function Login(){
+  function Login() {
     navigate('/login');
   }
-  function Home(){
+  function Home() {
     navigate('/');
   }
-  function Cart(){
+  function Cart() {
     navigate('/cart');
   }
-  function Save(){
+  function Save() {
     navigate('/saveitem');
   }
-
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-      Easy-Cart <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                    style={{width: '90px'}} alt="logo"/> 
+        Easy-Cart <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+          style={{ width: '90px' }} alt="logo" />
       </Typography>
       <Divider />
       <List>
@@ -88,9 +80,7 @@ React.useEffect(() => {
       </List>
     </Box>
   );
-
   const container = window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -110,30 +100,27 @@ React.useEffect(() => {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-           Easy-Cart <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
-                    style={{width: '90px'}} alt="logo"/>
+            Easy-Cart <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+              style={{ width: '90px' }} alt="logo" />
           </Typography>
-           <Box sx={{ display: { xs: 'none', sm: 'block'} }}>
+          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {token && <>
-
               <Button key='home' sx={{ color: '#fff' }} onClick={Home}>
-               Home
+                Home
               </Button>
               <Button key='cart' sx={{ color: '#fff' }} onClick={Cart}>
-              <p className='bg-danger fs-6 rounded-circle text-light text-justify'><span className='text-danger'>..</span>{count}
-              <span className='text-danger'>..</span></p>
-               Cart
+                <p className='bg-danger fs-6 rounded-circle text-light text-justify'><span className='text-danger'>..</span>{count}
+                  <span className='text-danger'>..</span></p>
+                Cart
               </Button>
-
-              <Button  sx={{ color: '#fff' }} onClick={Save}> 
-              <p className='bg-danger fs-6 rounded-circle text-light text-justify'><span className='text-danger'>..</span>{counter}
-              <span className='text-danger'>..</span></p><CiHeart size="23px"></CiHeart></Button>
-
+              <Button sx={{ color: '#fff' }} onClick={Save}>
+                <p className='bg-danger fs-6 rounded-circle text-light text-justify'><span className='text-danger'>..</span>{counter}
+                  <span className='text-danger'>..</span></p><CiHeart size="23px"></CiHeart></Button>
               <Button key='about' sx={{ color: '#fff' }} >
-               About
+                About
               </Button>
               <Button key='logout' sx={{ color: '#ffc107' }} onClick={Logout}>
-               Logout
+                Logout
               </Button>
             </>}
             {!token && <>
@@ -150,7 +137,6 @@ React.useEffect(() => {
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
-          
           sx={{
             display: { xs: 'block', sm: 'none' },
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
@@ -159,14 +145,7 @@ React.useEffect(() => {
           {drawer}
         </Drawer>
       </Box>
-
-      
     </Box>
-    
-
   );
 }
-
-
-
 export default DrawerAppBar;

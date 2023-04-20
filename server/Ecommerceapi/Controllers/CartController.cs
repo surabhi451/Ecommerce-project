@@ -1,27 +1,27 @@
-﻿//using Ecommerceapi.Dto;
-//using Ecommerceapi.Service;
-//using Microsoft.AspNetCore.Http;
-//using Microsoft.AspNetCore.Mvc;
+﻿using Ecommerceapi.Dto;
+using Ecommerceapi.Service;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
-//namespace Ecommerceapi.Controllers
-//{
-   
-//    public class CartController : ControllerBase
-//    {
-//        private readonly CartService _service;
+namespace Ecommerceapi.Controllers
+{
 
-//        public CartController(CartService service)
-//        {
-//            _service = service;
-//        }
+    public class CartController : ControllerBase
+    {
+        private readonly CartService _service;
 
-//        [HttpGet("all")]
-//        [ProducesResponseType(typeof(CartViewDto[]), StatusCodes.Status200OK)]
-//        public async Task<IActionResult> GetAll()
-//        {
+        public CartController(CartService service)
+        {
+            _service = service;
+        }
 
-//            var result = await _service.GetAllCartAsync();
-//            return Ok(result);
-//        }
-//    }
-//}
+        [HttpGet("CartItems")]
+        [ProducesResponseType(typeof(CartViewDto[]), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAllCartItems()
+        {
+
+            var result = await _service.GetAllCartAsync();
+            return Ok(result);
+        }
+    }
+}

@@ -3,17 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function TokenInterceptor() {
-
-    const navigate = useNavigate();
-    
+    const navigate = useNavigate();    
     axios.interceptors.request.use(
         function (request) {
             const token = localStorage.getItem('token');
-
             if(!token){
                 return request;
             }
-
             request.headers.Authorization = `Bearer ${token}`; 
             return request;
         },
@@ -21,7 +17,6 @@ function TokenInterceptor() {
             return Promise.reject(error);
         }
     );
-
     axios.interceptors.response.use(
         function (response) {
             console.log(response);
@@ -29,7 +24,6 @@ function TokenInterceptor() {
         },
         function (error) {
             console.log(error)
-            // console.log('From interceptor', error);
             if (error.response.status === 401) {
                 return navigate('/');
             }

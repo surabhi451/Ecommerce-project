@@ -6,6 +6,6 @@
         public string Name { get; set; }
         public string Email { get; set; }
         public DateTime Dob { get; set; }
-        public string Phonenumber { get; set; }
+        public int Phonenumber { get; set; }
     }
 }

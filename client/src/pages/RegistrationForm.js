@@ -1,71 +1,124 @@
-<section class="h-100 h-custom" style="background-color: #8fc4b7;">
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col-lg-8 col-xl-6">
-        <div class="card rounded-3">
-          <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/img3.webp"
-            class="w-100" style="border-top-left-radius: .3rem; border-top-right-radius: .3rem;"
-            alt="Sample photo"/>
-          <div class="card-body p-4 p-md-5">
-            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registration Info</h3>
+import React from 'react';
+import axios from 'axios';
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { ToastContainer } from 'react-toastify';
+import notify from '../components/toastService';
 
-            <form class="px-md-2">
+function Register() {
+  const navigate = useNavigate();
+  const schema = yup.object().shape(
+    {
+      name: yup.string().required("Name is required"),
+      email: yup.string().email('Email is not valid').required("Email is required"),
+      phonenumber: yup.string("Phone number is not valid").required("Phone no is required"),
+      dob: yup.date().required("Date of Birth is required"),
+      password: yup.string().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{5,}$/, "Minimum five characters, at least one uppercase letter, one lowercase letter, one number and one special character").required("Password is required"),
+      confirmpassword: yup.string().oneOf([yup.ref("password"), "Confirm password doesnt match"]).required("Confirm password is required")
+    })
+  const registerUser = async (data) => {
+    console.log(data)
+    const regdata = { 
+      "Name": data.name, 
+      "Email": data.email, 
+      "Password": data.password, 
+      "Dob": data.dob, 
+      "PhoneNumber": data.phonenumber 
+    }
+    console.log(regdata)
+    try {
+      const res = await axios.post('https://localhost:7062/user/registration', regdata);
+      
+      if (res) {
 
-              <div class="form-outline mb-4">
-                <input type="text" id="form3Example1q" class="form-control" />
-                <label class="form-label" for="form3Example1q">Name</label>
-              </div>
+        console.log("Succesfully registered", res)
 
-              <div class="row">
-                <div class="col-md-6 mb-4">
+        navigate('/Login');
+      }
 
-                  <div class="form-outline datepicker">
-                    <input type="text" class="form-control" id="exampleDatepicker1" />
-                    <label for="exampleDatepicker1" class="form-label">Select a date</label>
-                  </div>
-
+    }
+    catch (err) {
+      console.log(err)
+      notify("Failed to register ");
+    }
+  };
+  const formInvalid = (data) => {
+    console.log("Invalid form", data);
+  }
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema)
+  });
+  return (
+    <div className='container-fluid'>
+      <ToastContainer />
+      <section className="h-100 h-custom" style={{ backgroundcolor: ' #8fc4b7' }}>
+        <div classNames="container py-5 h-100">
+          <div className="row d-flex justify-content-center align-items-center h-100">
+            <div className="col-lg-8 col-xl-6">
+              <div className="card rounded-3">
+                <img src="https://images.pexels.com/photos/135620/pexels-photo-135620.jpeg?cs=srgb&dl=pexels-shattha-pilabut-135620.jpg&fm=jpg"
+                  className="w-100"
+                  alt="Sample photo" />
+                <div className="card-body p-4 p-md-5">
+                  <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registration Info</h3>
+                  <form className="px-md-2" onSubmit={handleSubmit(registerUser, formInvalid)}>
+                    <div className='details'>
+                      <label htmlFor="name" className='labels'>Name</label>
+                      <input type="text" name="name" className='form-control'
+                        placeholder="Enter your name"
+                        {...register("name", { required: true, maxLength: 50 })} />
+                      <p className="text-danger">{errors.name ? errors.name.message : <></>}</p>
+                    </div>
+                    <div className='details'>
+                      <label htmlFor="email" className='labels'>Email Id</label>
+                      <input type="email" name="name" className='form-control'
+                        placeholder="Enter your email"
+                        {...register("email", { required: true, maxLength: 50 })} />
+                      <p className="text-danger">{errors.email ? errors.email.message : <></>}</p>
+                    </div>
+                    <div className='details'>
+                      <label htmlFor="phonenumber" className='labels'>PhoneNumber</label>
+                      <input type="text" name="phonenumber" className='form-control'
+                        placeholder="Enter your phonenumber"
+                        {...register("phonenumber", { required: true, maxLength: 10 })} />
+                      <p className="text-danger">{errors.phonenumber ? errors.phonenumber.message : <></>}</p>
+                    </div>
+                    <div className='details'>
+                      <label htmlFor="dob" className='labels'>Date of Birth</label>
+                      <input type="date" name="dob" className='form-control'
+                        placeholder="Enter your date of birth "
+                        {...register("dob", { required: true })} />
+                    </div>
+                    <div className='details'>
+                      <label htmlFor="password" className='labels'>Password</label>
+                      <input type="password" name="password" className='form-control'
+                        placeholder="Enter your password "
+                        {...register("password", { required: true, validate: true })} />
+                      <p className="text-danger">{errors.password ? errors.password.message : <></>}</p>
+                    </div>
+                    <div className='details'>
+                      <label htmlFor="confirmpassword" className='labels'>Confirm Password</label>
+                      <input type="password" name="confirmpassword" className='form-control'
+                        placeholder="Enter your confirmpassword "
+                        {...register("confirmpassword", { required: true, validate: true })} />
+                      <p className="text-danger">{errors.confirmpassword ? errors.confirmpassword.message : <></>}</p>
+                    </div>
+                    <button type="submit" className="btn btn-success btn-lg mb-1">Submit</button>
+                    <p className="text-center text-muted mt-5 mb-0">Have already an account? <Link to={'/Login'}
+                      className="fw-bold text-body"><u>Login here</u></Link></p>
+                  </form>
                 </div>
-                <div class="col-md-6 mb-4">
-
-                  <select class="select">
-                    <option value="1" disabled>Gender</option>
-                    <option value="2">Female</option>
-                    <option value="3">Male</option>
-                    <option value="4">Other</option>
-                  </select>
-
-                </div>
               </div>
-
-              <div class="mb-4">
-
-                <select class="select">
-                  <option value="1" disabled>Class</option>
-                  <option value="2">Class 1</option>
-                  <option value="3">Class 2</option>
-                  <option value="4">Class 3</option>
-                </select>
-
-              </div>
-
-              <div class="row mb-4 pb-2 pb-md-0 mb-md-5">
-                <div class="col-md-6">
-
-                  <div class="form-outline">
-                    <input type="text" id="form3Example1w" class="form-control" />
-                    <label class="form-label" for="form3Example1w">Registration code</label>
-                  </div>
-
-                </div>
-              </div>
-
-              <button type="submit" class="btn btn-success btn-lg mb-1">Submit</button>
-
-            </form>
-
+            </div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
-  </div>
-</section>
+  )
+}
+
+export default Register;
+
+

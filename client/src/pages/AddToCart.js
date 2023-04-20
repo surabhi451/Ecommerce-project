@@ -10,9 +10,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from "react";
 
-
-function Addtocart() {
-  
+function AddToCart() {
   const [counter, setCounter] = useState(1)
   const dispatch = useDispatch();
   const result = useSelector(state => state.carts.product);
@@ -58,91 +56,84 @@ function Addtocart() {
     const Decrement = (id) => {
       if (counter > 1) {
         setCounter(counter - 1);
-       
-      } 
+
+      }
     }
     const Increment = (id) => {
       setCounter(counter + 1);
     }
-    
-   
     return (
       <>
         <div class="dashboard-topnav">
           <DrawerAppBar />
         </div>
-        <section class="h-100 h-custom" style={{ backgroundcolor: '#d2c9ff' }}>
-          <div class="container py-5 h-100">
-            <div class="row d-flex justify-content-center align-items-center h-100">
-              <div class="col-12">
-                <div class="card card-registration card-registration-2" style={{ borderradius: '15px' }}>
-                  <div class="card-body p-0">
-                    <div class="row g-0">
-                      <div class="col-lg-8">
-                        <div class="p-5">
-                          <div class="d-flex justify-content-between align-items-center mb-5">
-                            <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
-                            <h6 class="mb-0 text-muted">Selected Items </h6>
+        <section className="h-100 h-custom" style={{ backgroundcolor: '#d2c9ff' }}>
+          <div className="container py-5 h-100">
+            <div className="row d-flex justify-content-center align-items-center h-100">
+              <div className="col-12">
+                <div className="card card-registration card-registration-2" style={{ borderradius: '15px' }}>
+                  <div className="card-body p-0">
+                    <div className="row g-0">
+                      <div className="col-lg-8">
+                        <div className="p-5">
+                          <div className="d-flex justify-content-between align-items-center mb-5">
+                            <h1 className="fw-bold mb-0 text-black">Shopping Cart</h1>
+                            <h6 className="mb-0 text-muted">Selected Items </h6>
                           </div>
-                          <hr class="my-4" />
+                          <hr className="my-4" />
                           {result && result.map((products, index) =>
-                            <div class="row mb-4 d-flex justify-content-between align-items-center" key={index}>
-                              <div class="col-md-2 col-lg-2 col-xl-2">
+                            <div className="row mb-4 d-flex justify-content-between align-items-center" key={index}>
+                              <div className="col-md-2 col-lg-2 col-xl-2">
                                 <img
-                                  src={products.image} class="img-fluid rounded-3" alt="Cotton T-shirt" />
+                                  src={products.image} className="img-fluid rounded-3" alt="Cotton T-shirt" />
                               </div>
-                              <div class="col-md-3 col-lg-3 col-xl-3">
-                                <h6 class="text-muted">{products.category}</h6>
-                                <h5 class="text-black mb-0">{products.title}</h5>
+                              <div className="col-md-3 col-lg-3 col-xl-3">
+                                <h6 className="text-muted">{products.category}</h6>
+                                <h5 className="text-black mb-0">{products.title}</h5>
                               </div>
-                              <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                <button class="btn btn-link px-2"
+                              <div className="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                <button className="btn btn-link px-2"
                                   onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                  <i class="fas fa-minus"></i>
+                                  <i className="fas fa-minus"></i>
                                 </button>
                               </div>
-
-                              <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                <Button onClick={Decrement}id={products.id}> -</Button>
+                              <div className="col-md-3 col-lg-3 col-xl-2 d-flex">
+                                <Button onClick={Decrement} id={products.id}> -</Button>
                                 {counter}
                                 <Button onClick={Increment} id={products.id}>+</Button>
                               </div>
-
-                              <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                <h6 class="mb-0">€ {products.price * counter} </h6>
+                              <div className="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                                <h6 className="mb-0">€ {products.price * counter} </h6>
                               </div>
-
-                             
-
-                              <div class="col-md-3 col-lg-3 col-xl-2">
+                              <div className="col-md-3 col-lg-3 col-xl-2">
                                 <Button variant="contained" sx={{ bgcolor: 'red' }} onClick={() => { remove(index) }} > DELETE </Button>
                               </div>
-                              <hr class="my-4" />
+                              <hr className="my-4" />
                             </div>
                           )}
-                          <div class="pt-5">
-                            <h6 class="mb-0"><Link to={'/'}>Back to shop</Link></h6>
+                          <div className="pt-5">
+                            <h6 className="mb-0"><Link to={'/'}>Back to shop</Link></h6>
                           </div>
                         </div>
                       </div>
-                      <div class="col-lg-4 bg-grey">
-                        <div class="p-5">
-                          <h3 class="fw-bold mb-5 mt-2 pt-1">Summary</h3>
-                          <hr class="my-4" />
-                          <div class="d-flex justify-content-between mb-4">
-                            <h5 class="text-uppercase">Total Amount :</h5>
+                      <div className="col-lg-4 bg-grey">
+                        <div className="p-5">
+                          <h3 className="fw-bold mb-5 mt-2 pt-1">Summary</h3>
+                          <hr className="my-4" />
+                          <div className="d-flex justify-content-between mb-4">
+                            <h5 className="text-uppercase">Total Amount :</h5>
                             <h5>€ {totalAmount}</h5>
                           </div>
-                          <div class="d-flex justify-content-between mb-4">
-                            <h5 class="text-uppercase ">Shipping Fee :</h5>
+                          <div className="d-flex justify-content-between mb-4">
+                            <h5 className="text-uppercase ">Shipping Fee :</h5>
                             <h5>€ {shippingFee}</h5>
                           </div>
-                          <hr class="my-4" />
-                          <div class="d-flex justify-content-between mb-4">
-                            <h5 class="text-uppercase">Total price :</h5>
+                          <hr className="my-4" />
+                          <div className="d-flex justify-content-between mb-4">
+                            <h5 className="text-uppercase">Total price :</h5>
                             <h5>€ {totalPrice}</h5>
                           </div>
-                          <div class="d-flex justify-content-center mb-5" >
+                          <div className="d-flex justify-content-center mb-5" >
                             <Button variant="contained" sx={{ bgcolor: 'green' }} onClick={success}> BUY NOW </Button><ToastContainer />
                           </div>
                         </div>
@@ -158,4 +149,4 @@ function Addtocart() {
     )
   }
 }
-export default Addtocart;
+export default AddToCart;
