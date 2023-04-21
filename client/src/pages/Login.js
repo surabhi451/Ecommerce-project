@@ -92,7 +92,7 @@ function Login() {
                 <div className="col-lg-6 d-flex align-items-center gradient-custom-2">
                   <div className="text-white px-3 py-4 p-md-5 mx-md-4">
                     <img src="https://images.unsplash.com/photo-1501127122-f385ca6ddd9d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80"
-                      alt="login form" className="img-fluid" style={{ borderradius: '1rem 0 0 1rem' }} />
+                      alt="login form" className="img-fluid" style={{ borderradius: '1rem 0 0 1rem' }}/>
                   </div>
                 </div>
               </div>

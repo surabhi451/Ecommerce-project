@@ -37,14 +37,11 @@ function ViewProduct() {
       });
   }, []);
   const incrementValue = (item) => {
-    axios.get('https://localhost:7062/GetProductById/${item}')
-      .then((res) => {
-        console.log(res.data)
-      })
     setCount(count + 1);
     dispatch(updateCart(count));
     dispatch(cartProduct(item))
-  };
+};
+
 
   return (
     <>
@@ -78,7 +75,7 @@ function ViewProduct() {
                         </div>
                       </div>
                     </div>
-                    <hr className="my-0" />
+                    <hr className="my-0"/>
                     <div className="card-body pb-0">
                       <div> <p className="text-muted">{item.description}</p></div>
                     </div>
@@ -94,7 +91,7 @@ function ViewProduct() {
                       <ButtonGroup variant="contained" aria-label="outlined primary button group">
                         <Button variant="outlined" color="primary"><Link to={`/`}>Back TO Home</Link></Button>
                         {token && <>
-                          <Button variant="contained" color="primary" onClick={() => { incrementValue(item.id) }}>Add to Cart</Button>
+                          <Button variant="contained" color="primary" onClick={() => { incrementValue(item) }}>Add to Cart</Button>
                         </>}
                       </ButtonGroup>
                     </div><br></br>

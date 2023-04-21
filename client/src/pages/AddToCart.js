@@ -120,7 +120,7 @@ function AddToCart() {
                               <div className="col-md-3 col-lg-3 col-xl-2">
                                 <Button variant="contained" sx={{ bgcolor: 'red' }} onClick={() => { remove(index) }} > DELETE </Button>
                               </div>
-                              <hr className="my-4" />
+                              <hr className="my-4"/>
                             </div>
                           )}
                           <div className="pt-5">
