@@ -85,7 +85,7 @@ function Homepage() {
 
     return (
         <>
-            <div class="active bg-light" href="#login" >
+            <div className="active bg-light" href="#login" >
                 <DrawerAppBar />
                 {token && <>
                     <Container fluid className="mt-5 pt-4 pb-2 bg-light text-center">
@@ -196,7 +196,7 @@ function Homepage() {
                                                     <div className="text-center">
                                                         <h5>Price: <span className="bold">$ {product.price}</span></h5>
                                                     </div>
-                                                    <hr class="my-0" />
+                                                    <hr className="my-0"/>
                                                     <div className="text-center">
                                                         <ButtonGroup variant="contained" aria-label="outlined primary button group">
                                                             <Button variant="outlined" color="primary"><Link to={`/viewinfo/${product.id}`} >View Info</Link></Button>

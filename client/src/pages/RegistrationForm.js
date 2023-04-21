@@ -56,7 +56,7 @@ function Register() {
               <div className="card rounded-3">
                 <img src="https://images.pexels.com/photos/135620/pexels-photo-135620.jpeg?cs=srgb&dl=pexels-shattha-pilabut-135620.jpg&fm=jpg"
                   className="w-100"
-                  alt="Sample photo" />
+                  alt="Sample photo"/>
                 <div className="card-body p-4 p-md-5">
                   <h3 className="mb-4 pb-2 pb-md-0 mb-md-5 px-md-2">Registration Info</h3>
                   <form className="px-md-2" onSubmit={handleSubmit(registerUser, formInvalid)}>
