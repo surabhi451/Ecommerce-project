@@ -20,24 +20,20 @@ function Register() {
     })
   const registerUser = async (data) => {
     console.log(data)
-    const regdata = { 
-      "Name": data.name, 
-      "Email": data.email, 
-      "Password": data.password, 
-      "Dob": data.dob, 
-      "PhoneNumber": data.phonenumber 
+    const regdata = {
+      "Name": data.name,
+      "Email": data.email,
+      "Password": data.password,
+      "Dob": data.dob,
+      "PhoneNumber": data.phonenumber
     }
     console.log(regdata)
     try {
       const res = await axios.post('https://localhost:7062/user/registration', regdata);
-      
       if (res) {
-
         console.log("Succesfully registered", res)
-
         navigate('/Login');
       }
-
     }
     catch (err) {
       console.log(err)

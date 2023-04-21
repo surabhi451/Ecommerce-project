@@ -30,7 +30,7 @@ function DrawerAppBar(props) {
   const [navItems, setNavItems] = React.useState(['Login']);
   const navigate = useNavigate();
   const count = useSelector(state => state.carts.cart);
-  const counter = useSelector(state => state.carts.cart1);
+  const counter = useSelector(state => state.carts.cartSave);
   function navbarSetter() {
     if (token) {
       console.log("token is ", token);

@@ -6,8 +6,6 @@ import Register from "./pages/RegistrationForm";
 import AddToCart from "./pages/AddToCart";
 import ViewProduct from "./pages/ViewProduct";
 
-
-
 function App() {
   return (
     <div className="bg-light">

@@ -9,7 +9,6 @@ import { getToken } from "../utils/TokenHelper";
 import SearchBox from "../components/SearchBox";
 import { Container } from "@mui/system";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTshirt, faFemale, faLaptop, faGem, faMagnifyingGlass, faStore } from '@fortawesome/free-solid-svg-icons';
 import { toast, ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux"
 import { updateCart, cartProduct } from "../components/Redux/cartslice";
@@ -61,20 +60,9 @@ function Homepage() {
             console.log("error is ", err);
         }
     }
-    
-    async function allProductsSelector() {
-        try {
-            await axios.get(`https://localhost:7062/AllProduct`)
-                .then((res) => {
-                    console.log("result of category", res.data);
-                    setProducts(res.data);
-                })
-        }
-        catch (err) {
-            console.log("error is ", err);
-        }
-    }
+
     const searchOutput = (searchKey) => {
+
         console.log("searchkey is ", searchKey)
         setSearchInput(searchKey);
         if (searchInput !== '') {
@@ -94,6 +82,7 @@ function Homepage() {
         dispatch(updateCart(count));
         dispatch(cartProduct(item))
     };
+
     return (
         <>
             <div class="active bg-light" href="#login" >
@@ -132,7 +121,7 @@ function Homepage() {
             </div>
             <div>
                 <ToastContainer />
-                <section className="" style={{ backgroundColor: "#eee", }}>   
+                <section className="" style={{ backgroundColor: "#eee", }}>
                     <div className="container py-5">
                         <div className="row">
                             {searchInput.length > 1 ? (
@@ -147,7 +136,7 @@ function Homepage() {
                                                     <img
                                                         src={product.image}
                                                         className="card-img-top"
-                                                        alt="Laptop"/>
+                                                        alt="Laptop" />
                                                 </div>
                                                 <div claclassNamess="card-body">
                                                     <div className="d-flex justify-content-between">
@@ -168,7 +157,7 @@ function Homepage() {
                                                         <ButtonGroup variant="contained" aria-label="outlined primary button group">
                                                             <Button variant="outlined" color="primary"><Link to={`/viewinfo/${product.id}`}>View Info</Link></Button>
                                                             {token && <>
-                                                                <Button variant="contained" color="primary" onClick= { incrementCount}><Link to={`/cart/${product.id}`}> Add to Cart</Link></Button> 
+                                                                <Button variant="contained" color="primary" onClick={() => { incrementCount(product) }}><Link to={`/cart`}> Add to Cart</Link></Button>
                                                             </>}
                                                         </ButtonGroup>
                                                     </div>
@@ -202,12 +191,12 @@ function Homepage() {
                                                         <h5 className="text-truncate mb-4 mb-md-0">{product.name}</h5>
                                                     </div>
                                                     <div className="d-flex justify-content-between mb-2">
-                                                        <p className="text-muted mb-0">Available: <span className="fw-bold">{product.available}</span></p>  
+                                                        <p className="text-muted mb-0">Available: <span className="fw-bold">{product.available}</span></p>
                                                     </div>
                                                     <div className="text-center">
-                                                            <h5>Price: <span className="bold">$ {product.price}</span></h5>
-                                                        </div>
-                                                        <hr class="my-0" />
+                                                        <h5>Price: <span className="bold">$ {product.price}</span></h5>
+                                                    </div>
+                                                    <hr class="my-0" />
                                                     <div className="text-center">
                                                         <ButtonGroup variant="contained" aria-label="outlined primary button group">
                                                             <Button variant="outlined" color="primary"><Link to={`/viewinfo/${product.id}`} >View Info</Link></Button>
