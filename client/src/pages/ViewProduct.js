@@ -38,9 +38,9 @@ function ViewProduct() {
   }, []);
   const incrementValue = (item) => {
     axios.get('https://localhost:7062/GetProductById/${item}')
-    .then((res)=>{
-      console.log(res.data)
-    })
+      .then((res) => {
+        console.log(res.data)
+      })
     setCount(count + 1);
     dispatch(updateCart(count));
     dispatch(cartProduct(item))
@@ -88,7 +88,7 @@ function ViewProduct() {
                         <h6 className="text-dark"  >Price: ${item.price}</h6>
                         <h6 className="text-dark" >Available: {item.available}</h6>
                       </div>
-                    </div> 
+                    </div>
                     <hr className="my-0" /><br></br>
                     <div className="text-center">
                       <ButtonGroup variant="contained" aria-label="outlined primary button group">

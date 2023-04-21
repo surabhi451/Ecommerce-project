@@ -105,7 +105,8 @@ function DrawerAppBar(props) {
             component="div"
             sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
           >
-            E-commerce
+            Easy-Cart <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+              style={{ width: '90px' }} alt="logo" />
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {token && <>

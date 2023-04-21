@@ -1,12 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-
 export const cartslice = createSlice({
   name: 'cart',
   initialState: {
     cart: 0,
     cartSave: 0,
+    quantity: 0,
     products: [],
-    productsSave: []
+    productsSave: [],
+    itemQuantity: [],
   },
   reducers: {
     updateCart: (state, action) => {
@@ -17,7 +18,8 @@ export const cartslice = createSlice({
     },
     cartProduct: (state, action) => {
       console.log("added product is", action.payload);
-      state.products.push(action.payload)
+      state.products.push(action.payload);
+      state.itemQuantity.push(1);
     },
     saveItem: (state, action) => {
       console.log("added product is", action.payload);
@@ -36,8 +38,20 @@ export const cartslice = createSlice({
     updateItem: (state, action) => {
       console.log(action);
       state.products.findIndex(action, 1);
+    },
+    incQuantity: (state, action) => {
+      console.log("inside quantity increment", action);
+      const currVal = state.itemQuantity[action.payload] + 1;
+      console.log("currentvalue", currVal)
+      state.itemQuantity.splice(action.payload, 1, currVal);
+    },
+    decQuantity: (state, action) => {
+      console.log("inside quantity increment", action);
+      const currVal = state.itemQuantity[action.payload] - 1;
+      console.log("currentvalue", currVal)
+      state.itemQuantity.splice(action.payload, 1, currVal);
     }
   }
 });
-export const { updateCart, updateCartSave, cartProduct, removeItem, removeItemSave, updateItem, saveItem } = cartslice.actions;
+export const { updateCart, updateCartSave, cartProduct, removeItem, removeItemSave, updateItem, saveItem, incQuantity, decQuantity } = cartslice.actions;
 export default cartslice.reducer;

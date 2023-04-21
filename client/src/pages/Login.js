@@ -32,7 +32,6 @@ function Login() {
   });
   const onSubmit = async (event) => {
     try {
-
       await axios.post('https://localhost:7062/login/user', {
         email,
         password
